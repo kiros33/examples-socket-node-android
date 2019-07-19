@@ -5,7 +5,7 @@
 ### Virtualbox
   * 설정
       - General - Basic
-![VirtualBox-Settings-001](https://user-images.githubusercontent.com/1563133/61503833-2a76b000-aa14-11e9-9414-1fddeb627672.png)
+![VirtualBox-Settings-001](https://user-images.githubusercontent.com/1563133/61503833-2a76b000-aa14-11e9-9414-1fddeb627672.png | width=400)
       - General - Advanced
 ![VirtualBox-Settings-002](https://user-images.githubusercontent.com/1563133/61503834-2a76b000-aa14-11e9-8764-ee06881240bd.png)
       - General - Description
