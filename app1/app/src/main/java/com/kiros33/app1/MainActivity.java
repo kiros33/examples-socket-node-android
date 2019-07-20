@@ -25,11 +25,14 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String serverIP = "192.168.25.25";
-    private static final int serverPort = 5000;
+    //private static final String serverIP = "192.168.25.7";
+    //private static final int serverPort = 5000;
+    private static final String serverIP = "211.111.172.251";
+    private static final int serverPort = 21;
     private String msg;
     EditText txt1;
     AccumulatorTask SocketThread;
@@ -46,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             Log.d("MAIN", "ExecuteOnExcutor");
-            SocketThread.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, 1, 2, 3);
+            //SocketThread.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, 1, 2, 3);
+            SocketThread.execute(1, 2, 3);
         }
         else {
             Log.d("MAIN", "Execute");
@@ -109,18 +113,34 @@ public class MainActivity extends AppCompatActivity {
             Log.i("AsyncTask", "onPreExecute");
 
             try {
+//                Log.d("TCP", "Connection ifo, " + "192.168.25.7" + ":" + "22");
+//                Socket s = new Socket("192.168.25.7",  22);
                 // 소캣을 생성하고
+                Log.d("TCP", "Connection ifo, " + serverIP + ":" + serverPort);
                 serverAddr = InetAddress.getByName(serverIP);
                 socket = new Socket(serverAddr, serverPort);
-                Log.d("TCP", "Connecting...");
+                Log.d("TCP", "Connecting... to " + serverIP + ":" + serverPort);
 
                 // 입출력 스트림을 생성함
                 out = new PrintWriter(new BufferedWriter( new OutputStreamWriter(socket.getOutputStream())),true);
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 Log.d("TCP", "Stream Initialization");
 
+
+            } catch (UnknownHostException uhe) {
+                // 소켓 생성 시 전달되는 호스트(www.unknown-host.com)의 IP를 식별할 수 없음.
+                Log.d("TCP", "Connecting Fail... uhe\n" + uhe.getMessage());
+            } catch (IOException ioe) {
+                // 소켓 생성 과정에서 I/O 에러 발생.
+                Log.d("TCP", "Connecting Fail... ioe\n" + ioe.getMessage());
+            } catch (SecurityException se) {
+                // security manager에서 허용되지 않은 기능 수행.
+                Log.d("TCP", "Connecting Fail... se\n" + se.getMessage());
+            } catch (IllegalArgumentException iae) {
+                // 소켓 생성 시 전달되는 포트 번호(65536)이 허용 범위(0~65535)를 벗어남.
+                Log.d("TCP", "Connecting Fail... iae\n" + iae.getMessage());
             } catch (Exception e) {
-                Log.d("TCP", "Connecting Fail...");
+                Log.d("TCP", "Connecting Fail... e\n" + e.getMessage());
             }
         }
 
@@ -143,15 +163,15 @@ public class MainActivity extends AppCompatActivity {
             while(isCancelled() == false){
                 try {
                     //  Received Message Part
-                    Log.d("TCP", "C: Ready Receive Message");
+                    //Log.d("TCP", "C: Ready Receive Message");
                     ReceiveMsg = in.readLine(); // Wait until message receiving complete
-                    Log.d("TCP", "C: Receive Message: [" + ReceiveMsg + "]");
+                    //Log.d("TCP", "C: Receive Message: [" + ReceiveMsg + "]");
                     publishProgress();
 
                 } catch(Exception e) {
-                    Log.d("TCP", "Exception");
+                    //Log.d("TCP", "Exception");
                 } finally {
-                    Log.d("TCP", "Finally");
+                    //Log.d("TCP", "Finally");
                 }
 
             }

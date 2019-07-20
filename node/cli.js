@@ -1,7 +1,10 @@
 var net = require('net');
 
 // 서버 5000번 포트로 접속
-var socket = net.connect({port : 5000});
+//var socket = net.connect({port : 5000});
+//var socket = net.connect({port : 5000, host : "192.168.25.7"});
+//var socket = net.connect({port : 21, host : "211.111.172.251"});
+var socket = net.connect({port : 21, host : "211.111.172.251"});
 socket.on('connect', function(){
   console.log('connected to server!');
   
