@@ -20,6 +20,7 @@ public class SocketAsyncTask extends AsyncTask<Object, String, TCPClient> {
     private static final String     TAG         = "SocketAsyncTask";
     String connectHost;
     int connectPort;
+    String connectCmd;
 
     final MessageReceiveCallbackInterface messageReceivedCallback;
 
@@ -67,10 +68,11 @@ public class SocketAsyncTask extends AsyncTask<Object, String, TCPClient> {
 
         connectHost = params[0].toString();
         connectPort = ((int) params[1]);
+        connectCmd = params[2].toString();
 
         try{
             tcpClient = new TCPClient(mHandler,
-                                      "command",
+                                      connectCmd,
                                       connectHost,
                                       connectPort,
                                       new TCPClient.MessageCallback() {

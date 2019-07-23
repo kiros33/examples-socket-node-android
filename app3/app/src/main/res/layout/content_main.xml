@@ -125,14 +125,18 @@
 
         <TextView
             android:id="@+id/tvOutput"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:text="Output" />
 
         <TextView
             android:id="@+id/tvReceivedMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:inputType="textMultiLine"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="horizontal|vertical"
+            android:scrollHorizontally="true"
             android:text="Received message" />
 
     </LinearLayout>

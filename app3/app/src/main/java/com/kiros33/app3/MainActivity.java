@@ -193,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
             if (checkConnectionInfo()) {
                 Snackbar.make(view, "Connect to " + connectHost + ":" + connectPort, Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
+            tvReceivedMessage.setText("");
 
             // 서버에 특정 메시지를 전달 한 뒤 혹은 서버로부터 특정 메시지를 수신 한 경우
             // 안드로이드 프로그램에서 관련 동작을 수행해야 할 때 핸들러에 동작을 추가하면 됨
@@ -234,16 +235,20 @@ public class MainActivity extends AppCompatActivity {
                 public void onReceived(String msg) {
                     String mTag = "MessageReceiveCallback";
                     Log.d(mTag, msg);
-                    tvReceivedMessage.setText(msg);
+                    tvReceivedMessage.append(msg);
                 }
             });
+
+            String msg = etMessage.getText().toString();
+            if (msg.length() <= 0) msg = "GET";
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                 Log.d("btnConnectListener", "executeOnExecutor");
-                socTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, connectHost, connectPort);
+                socTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, connectHost, connectPort, msg);
             }
             else {
                 Log.d("btnConnectListener", "execute");
-                socTask.execute(connectHost, connectPort);
+                socTask.execute(connectHost, connectPort, msg);
             }
         }
     };
@@ -254,6 +259,7 @@ public class MainActivity extends AppCompatActivity {
     private OnClickListener btnDisconnectListener = new OnClickListener() {
         public void onClick(View view){
             Snackbar.make(view, "Disconnecting", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            tvReceivedMessage.setText("");
             Log.d("btnDisconnectListener", "task cancel");
             //ftpTask.cancel(true);
             socTask.stop();
@@ -267,6 +273,7 @@ public class MainActivity extends AppCompatActivity {
     private OnClickListener btnSendListener = new OnClickListener() {
         public void onClick(View view){
             Snackbar.make(view, "Send data", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            tvReceivedMessage.setText("");
             String msg = etMessage.getText().toString();
             if (msg.length() <= 0) msg = "default message";
             socTask.sendMessage(msg);
