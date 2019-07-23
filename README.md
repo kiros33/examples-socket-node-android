@@ -1,5 +1,13 @@
 # Node ↔ Android 소켓 통신 예제
 
+## 소스 위치
+| 구분 | 위치 | 설명 |
+| --- | --- | --- |
+| 서버 | /node | node.js 기반 서버/클라이언트 |
+| 클라이언트 | /app3 | 최종 완성 버전 |
+|   | /app1 | 미동작, 기본 AsyncTask 활용 |
+|   | /app2 | 미동작, Buffer Reader에 기반한 doInBackground에서 메인 루프 |
+
 ## 조건
 
 ### Client
