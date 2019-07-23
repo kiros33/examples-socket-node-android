@@ -1,6 +1,20 @@
-# examples-socket-node-android
+# Node ↔ Android 소켓 통신 예제
 
-## Node ↔ Android 소켓 통신 예제
+## 조건
+
+### Client
+ 1) Andoird 구성
+ 2) Java로 소스 개발
+ 3) AsyncTask 클래스 활용
+### Server
+  1) Node.js 기반
+  2) net 패키지 사용
+  
+### 개발환경
+* macOS Mojave 10.14.5
+* node v12.6.0
+* Android Studio 3.4.2
+* AVD 기반 테스트 with HAXM
 
 ### Virtualbox
   * 설정: [상세보기](https://github.com/kiros33/examples-socket-node-android/wiki/Virtualbox-Settings)
