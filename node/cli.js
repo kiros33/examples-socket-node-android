@@ -4,7 +4,7 @@ var net = require('net');
 //var socket = net.connect({port : 5000});
 //var socket = net.connect({port : 5000, host : "192.168.25.7"});
 //var socket = net.connect({port : 21, host : "211.111.172.251"});
-var socket = net.connect({port : 21, host : "211.111.172.251"});
+var socket = net.connect({port : 5000, host : "211.111.172.80"});
 socket.on('connect', function(){
   console.log('connected to server!');
   
