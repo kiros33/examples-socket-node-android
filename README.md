@@ -35,6 +35,19 @@ linsteing on 5000..
 
 <img width="356" alt="server-001" src="https://user-images.githubusercontent.com/1563133/61701346-f505f580-ad78-11e9-97e2-72a7096a440d.png">
 
+* 클라이언트에서 readLine() 함수를 사용하고 있음. 따라서 서버측에서 줄바꿈문자로 구분하여 전달할 필요가 있음.
+```javascript
+socket.write('welcome to server\r\n');
+```
+* 클라이언트에서 서버로 전달할 정보의 경우 줄바꿈 문자가 포함되어있음
+```javascript
+  socket.on('data', function(data){
+    console.log('rcv:' + data);
+    socket.write("ok received, " + data);
+    console.log('snd:' + 'ok');
+  });
+```
+
 ### 클라이언트
 
 1) 실행
